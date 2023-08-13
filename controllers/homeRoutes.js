@@ -1,6 +1,7 @@
-const { Blogpost } = require("../models");
-
 const router = require("express").Router();
+const { Blogpost, Comment  } = require("../models");
+
+
 // Get all post for homepage
 router.get("/", async (req, res) => {
     try {
