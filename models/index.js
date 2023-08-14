@@ -35,8 +35,4 @@ Comment.belongsTo(User, {
     onDelete: 'CASCADE'
 });
 
-module.exports = {
-    User,
-    Blogpost,
-    Comment
-};
+module.exports = {User, Blogpost, Comment };

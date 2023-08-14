@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Blogpost } = require('../../models/Blogpost');
+const { Blogpost } = require('../../models/');
 
 router.post('/', async (req, res) => {
     try {
@@ -57,9 +57,9 @@ router.post('/logout', (req, res) => {
         req.session.destroy(() => {
             res.status(204).end();
         });
-    } else (
+    } else {
         res.status(404).end();
-    }
+    }        
 });
 
 module.exports = router;
