@@ -5,40 +5,43 @@ class Comment extends Model {}
 
 Comment.init(
     {
-        body: {
-            type: DataTypes.STRING,
-            allowNull: false
-        }
-        // id: {
-        //     type:DataTypes.INTEGER,
-        //     allowNull: false,
-        //     primaryKey: true,
-        //     autoIncrement: true,
-        // },
-        // message: {
-        //     type: DataTypes.STRING,
-        //     allowNull: false,
-        // },
-        // date_created: {
-        //     type: DataTypes.DATE,
-        //     allowNull: false,
-        //     defaultValue: DataTypes.NOW
-        // },
-        // user_id: {
-        //     type: DataTypes.INTEGER,
-        //     references: {
-        //         model: 'user',
-        //         key: 'id',               
-        //     },
-        //     blogpost_id: {
-        //         type: DataTypes.INTEGER,
-        //         references: {
-        //             model: 'blogpost'
-        //         }
-        //     }
+        id: {
+            type:DataTypes.INTEGER,
+            allowNull: false,
+            primaryKey: true,
+            autoIncrement: true,
+        },
+        date_created: {
+            type: DataTypes.DATE,
+            allowNull: false,
+            defaultValue: DataTypes.NOW
+        },
+        detail: {
+            type: DataTypes.TEXT,
+            allowNull: false,
+        },
+        blogpost_id: {
+            type: DataTypes.INTEGER,
+            references: {
+                model: 'blogpost',
+                key: 'id', 
+            },              
+            },
+            post_id: {
+                type: DataTypes.INTEGER,
+                references: {
+                    model: 'post',
+                    key: 'id',
+                },
+            },
         },
         {
-            sequelize
-        }
+            sequelize,
+            timestamps: false,
+            freezeTableName: true,
+            underscored: true,
+            modelName: 'comment',
+    }
 );
+
 module.exports = Comment;
