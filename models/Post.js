@@ -1,14 +1,14 @@
 const sequelize = require("../config/connection");
 const { Model, DataTypes } = require("sequelize");
-const bcrypt = require("bcrypt");
+// const bcrypt = require("bcrypt");
 
 class User extends Model {
-    checkPassword(loginPW) {
-        return bcrypt.compareSync(loginPw, this.password);
-    }
+    // checkPassword(loginPW) {
+    //     return bcrypt.compareSync(loginPw, this.password);
+    // }
 }
 
-User.init(
+Post.init(
     {
         id: {
             type: DataTypes.INTEGER,
@@ -16,35 +16,35 @@ User.init(
             primaryKey: true,
             autoIncrement: true,
         },
-        username: {
+        title: {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        password: {
-            type: DataTypes.STRING,
+        date_created: {
+            type: DataTypes.DATE,
             allowNull: false,
-            validate: {
-                len: [8],
+            defaultValue: DataTypes.NOW,
+            },
+            detail: {
+                type: DataTypes.TEXT,
+                allowNull: false,
+            },
+            blogpost_id: {
+                type: DataTypes.INTEGER,
+                references: {
+                    model: 'blogpost',
+                    key: 'id',
+                },
             },
         },
-    },
     {
-        hooks: {
-            beforeCreate: async (newUserData) => {
-                newUserData.password = await bcrypt.hash(newUserData.password, 11);
-                return newUserData;
-            },
-            beforeUpdate: async (updatedUserData) => {
-                updatedUserData.password = await bcrypt.hash(updatedUserData.password, 11);
-                return updatedUserData;
-            },
-        },
+       
         sequelize,
         timestamps: false,
         freezeTableName: true,
         underscored: true,
-        modelName: "User",
-    },
-)
+        modelName: "Post",
+    }
+);
 
 module.exports = User;
