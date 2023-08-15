@@ -1,41 +1,58 @@
-const { Model, DataTypes, Sequelize } = require ('sequelize');
+const { Model, DataTypes } = require('sequelize');
+const bcrypt = require('bcrypt');
 const sequelize = require('../config/connection');
 
-class Blogpost extends Model {}
+class Blogpost extends Model {
+    checkPassword(loginPassword) {
+        return bcrypt.compareSync(loginPassword, this.password);
+    }
+}
 
 Blogpost.init(
     {
-        title: DataTypes.STRING,
-        body: DataTypes.STRING
-        // id: {
-        //     type: DataTypes.INTEGER,
-        //     allowNull: false,
-        //     primaryKey: true,
-        //     autoIncrement: true,
-        // },
-        // title: {
-        //     type: DataTypes.STRING,
-        //     allowNullL: false,
-        // },
-        // content: {
-        //     type: DataTypes.STRING,
-        //     allowNull: false,
-        // },
-        // user_id: {
-        //     type: DataTypes.INTEGER,
-        //     references: {
-        //         model: 'user',
-        //         key: 'id',
-        //     },
-        // },
-    },
-    {
+        id: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            primaryKey: true,
+            autoIncrement: true,
+        },
+        username: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        email: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: true,
+            validate: {
+                isEmail: true,
+            },
+        },
+            password: {
+                type: DataTypes.STRING,
+                allowNull: false,
+                validate: {
+                    isEmail: true,
+                    len: [8]
+                },
+            },
+        },
+            {
+        hooks: {
+            beforeCreate: async (newBlogbPostData) => {
+                newBlogbPostData.password = await bcrypt.hash(newBlogbPostData.password, 11);
+                return newBlogbPostData;
+            },
+            beforeCreate: async (updatedBlogbPostData) => {
+                updatedBlogbPostData.password = await bcrypt.hash(updatedBlogbPostData.password, 11);
+                return updatedBlogbPostData;
+            },
+        },
         sequelize,
-         timestamps: true,
-        // freezeTableName: true,
-        // underscored: true,
-        // modelName: 'blogpost',
-
+        timestamps: false,
+        freezeTableName: true,
+        underscored: true,
+        modelName: 'blogpost',
     }
 );
 
