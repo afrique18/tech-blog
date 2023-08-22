@@ -1,3 +1,4 @@
+const { Post } = require(".");
 const sequelize = require("../config/connection");
 const { Model, DataTypes } = require("sequelize");
 // const bcrypt = require("bcrypt");
@@ -43,8 +44,8 @@ Post.init(
         timestamps: false,
         freezeTableName: true,
         underscored: true,
-        modelName: "Post",
+        modelName: "post",
     }
 );
 
-module.exports = User;
+module.exports = Post;

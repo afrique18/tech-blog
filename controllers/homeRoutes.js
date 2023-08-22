@@ -118,19 +118,19 @@ router.get('/login', (req, res) => {
         res.status(500).json(err);
     }
 });
- else {
-    res.render('comment', {
-        ...post,
-        blogpost_id: req.session.blogpost_id,
-        blogpost_name: req.session.blogpost_name,
-        commenter: req.session.commenter,
-        logged_in: req.session.logged_in,
-    });
-}
- catch (err) {
-    res.status(500).json(err);
-}
-});
+//  else {
+//     res.render('comment', {
+//         ...post,
+//         blogpost_id: req.session.blogpost_id,
+//         blogpost_name: req.session.blogpost_name,
+//         commenter: req.session.commenter,
+//         logged_in: req.session.logged_in,
+//     });
+// }
+//  catch (err) {
+//     res.status(500).json(err);
+// }
+// });
 
 // Get a signup
 router.get("/signup", async (req, res) => {
