@@ -1,6 +1,6 @@
 const router = require("express").Router();
 // const { model } = require("mongoose");
-const { Blogpost, Comment } = require("../models");
+const { Blogpost, Comment, Post} = require("../models");
 const withAuth = require('../utils/auth');
 
 
@@ -118,21 +118,8 @@ router.get('/login', (req, res) => {
         res.status(500).json(err);
     }
 });
-//  else {
-//     res.render('comment', {
-//         ...post,
-//         blogpost_id: req.session.blogpost_id,
-//         blogpost_name: req.session.blogpost_name,
-//         commenter: req.session.commenter,
-//         logged_in: req.session.logged_in,
-//     });
-// }
-//  catch (err) {
-//     res.status(500).json(err);
-// }
-// });
 
-// Get a signup
+// Signup
 router.get("/signup", async (req, res) => {
     try {
         res.render('signup');
